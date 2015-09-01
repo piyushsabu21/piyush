@@ -80,7 +80,8 @@ function Submit(){
   if(fname != '' && lname != '' && femail != '' && freemail != '' && fpassword != '' && fmonth != '' && fday != '' && fyear != ''){
    document.getElementById("errorBox").innerHTML = "form submitted successfully";
    }
-   startTx();
+   
+    onDeviceReady();
    
    function populateDB(tx) {
         
@@ -116,7 +117,7 @@ function Submit(){
  
 table  += '</table>';
 
-document.getElementById("errorBox").innerHTML = .html(table);
+document.getElementById("display").innerHTML = table;
     }
 
     // Transaction error callback
@@ -134,12 +135,16 @@ document.getElementById("errorBox").innerHTML = .html(table);
 
     // Cordova is ready
     //
-    function startTx() {
+    function  onDeviceReady() {
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
         db.transaction(populateDB, errorCB, successCB);
     }
      
 }
+function callAnothePage()
+             {
+                window.location = "test.html";
+             }
 
   //var fname = document.form.Name.value,
   //lname = document.form.LastName.value,
