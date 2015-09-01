@@ -1,0 +1,29 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"SQLitePlugin\"><param name=\"wp-package\" value=\"SQLitePlugin\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "{57fcd220-4f9b-11e5-8a6d-8d1687855715}"
+        },
+        "io.litehelpers.cordova.sqlite": {
+            "PACKAGE_NAME": "{57fcd220-4f9b-11e5-8a6d-8d1687855715}"
+        }
+    },
+    "dependent_plugins": {}
+}
