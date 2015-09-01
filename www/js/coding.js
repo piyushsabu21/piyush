@@ -9,6 +9,31 @@ function Submit(){
   fday = document.form.birthday_day.value,
   fyear = document.form.birthday_year.value;
    
+	var str1 = '"';
+	var fname1 = str1.concat(fname);
+    var fname2= fname1.concat(str1);
+	
+	var lname1 = str1.concat(lname);
+    var lname2= lname1.concat(str1);
+	
+	var femail1 = str1.concat(femail);
+    var femail2= femail1.concat(str1);
+	
+	var freemail1 = str1.concat(freemail);
+    var freemail2= freemail1.concat(str1);
+	
+	var fpassword1 = str1.concat(fpassword);
+    var fpassword2= fpassword1.concat(str1);
+	
+	var fmonth1 = str1.concat(fmonth);
+    var fmonth2= fmonth1.concat(str1);
+   
+   var fday1 = str1.concat(fday);
+    var fday2= fday1.concat(str1);
+   
+   var fyear1 = str1.concat(fyear);
+    var fyear2= fyear1.concat(str1);
+   
  if( fname == "" )
    {
      document.form.Name.focus() ;
@@ -84,20 +109,25 @@ function Submit(){
     onDeviceReady();
    
    function populateDB(tx) {
-        
-        tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id INTEGER PRIMARY KEY, fname, lname, femail, fpassword, fmonth, fday, fyear)');
-        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (id, document.form.Name.value, document.form.LastName.value, document.form.Email.value, document.form.Password.value, document.form.birthday_month.value, document.form.birthday_day.value, document.form.birthday_year.value)');
+   tx.executeSql('DROP TABLE IF EXISTS DEMO');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (fname, lname, femail, fpassword, fmonth, fday, fyear)');
+        tx.executeSql('INSERT INTO DEMO (fname, lname, femail, fpassword, fmonth, fday, fyear) VALUES (fname2, lname2, femail2, fpassword2, fmonth2, fday2, fyear2)');
+		
+		queryDB(tx);
         }
 
     // Query the database
     //
     function queryDB(tx) {
+	
         tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+		
     }
 
     // Query the success callback
     //
     function querySuccess(tx, results) {
+	
         var len = results.rows.length;
         console.log("DEMO table: " + len + " rows found.");
 		
@@ -107,7 +137,7 @@ function Submit(){
 {
 	table += '<tr>'
 	table += '<td>'
-	table += results.rows.item(i).id;
+	table += results.rows.item(i).lname;
 	table += '</td>'
 	table += '<td>'
 	table += results.rows.item(i).fname;
@@ -117,12 +147,13 @@ function Submit(){
  
 table  += '</table>';
 
-document.getElementById("display").innerHTML = table;
+document.getElementById('display').innerHTML = table;
     }
 
     // Transaction error callback
     //
     function errorCB(err) {
+	
         console.log("Error processing SQL: "+err.code);
     }
 
@@ -136,6 +167,7 @@ document.getElementById("display").innerHTML = table;
     // Cordova is ready
     //
     function  onDeviceReady() {
+	
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
         db.transaction(populateDB, errorCB, successCB);
     }
